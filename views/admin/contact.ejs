@@ -1,0 +1,46 @@
+<%- include('partials/top', { pageTitle: 'კონტაქტი' }) %>
+<div class="page-head">
+  <h1>საკონტაქტო ინფორმაცია</h1>
+</div>
+<p class="hint">ცარიელი ველი საიტზე არ გამოჩნდება. WhatsApp, Instagram და Facebook შეკვეთის ღილაკშიც გამოჩნდება, თუ შევსებულია.</p>
+<%- include('partials/notices') %>
+<form method="post" action="/admin/contact" class="panel stack">
+  <div class="two-up">
+    <label class="field">
+      <span>ტელეფონი</span>
+      <input type="tel" name="phone" value="<%= values.phone %>" placeholder="+995 5XX XX XX XX">
+    </label>
+    <label class="field">
+      <span>ელფოსტა</span>
+      <input type="text" inputmode="email" name="email" value="<%= values.email %>" placeholder="name@example.com">
+    </label>
+  </div>
+  <label class="field field--short">
+    <span>WhatsApp ნომერი (შეკვეთის ღილაკისთვის)</span>
+    <input type="text" inputmode="tel" name="whatsapp" value="<%= values.whatsapp %>" placeholder="+995 5XX XX XX XX">
+  </label>
+  <div class="two-up">
+    <label class="field">
+      <span>Instagram ბმული</span>
+      <input type="text" inputmode="url" name="instagram_url" value="<%= values.instagram_url %>" placeholder="https://www.instagram.com/...">
+    </label>
+    <label class="field">
+      <span>Facebook ბმული</span>
+      <input type="text" inputmode="url" name="facebook_url" value="<%= values.facebook_url %>" placeholder="https://www.facebook.com/...">
+    </label>
+  </div>
+  <% fields.forEach((field) => { %>
+  <div class="two-up">
+    <label class="field">
+      <span><%= field.label %> ქართულად</span>
+      <textarea name="<%= field.key %>__ka" rows="3"><%= values[`${field.key}__ka`] %></textarea>
+    </label>
+    <label class="field">
+      <span><%= field.label %> ინგლისურად</span>
+      <textarea name="<%= field.key %>__en" rows="3"><%= values[`${field.key}__en`] %></textarea>
+    </label>
+  </div>
+  <% }) %>
+  <div><button class="button" type="submit">კონტაქტის შენახვა</button></div>
+</form>
+<%- include('partials/bottom') %>

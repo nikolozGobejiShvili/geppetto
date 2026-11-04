@@ -1,0 +1,102 @@
+<%- include('partials/top', { pageTitle: toy ? toy.name_ka : 'ახალი სათამაშო' }) %>
+<div class="page-head">
+  <h1><%= toy ? toy.name_ka : 'ახალი სათამაშო' %></h1>
+  <a href="/admin/toys">სათამაშოების სია</a>
+</div>
+<%- include('partials/notices') %>
+
+<form method="post" action="<%= toy ? `/admin/toys/${toy.id}` : '/admin/toys' %>" <%- toy ? '' : 'enctype="multipart/form-data"' %> class="panel stack">
+  <div class="two-up">
+    <label class="field">
+      <span>სახელი ქართულად (სავალდებულო)</span>
+      <input type="text" name="name_ka" value="<%= values.name_ka %>" required>
+    </label>
+    <label class="field">
+      <span>სახელი ინგლისურად</span>
+      <input type="text" name="name_en" value="<%= values.name_en %>">
+    </label>
+  </div>
+  <label class="field field--short">
+    <span>ფასი ლარში (ცარიელი ფასი საიტზე არ ჩანს)</span>
+    <input type="text" name="price" inputmode="decimal" value="<%= values.price %>" placeholder="29 ან 35.50">
+  </label>
+  <div class="two-up">
+    <label class="field">
+      <span>აღწერა ქართულად</span>
+      <textarea name="description_ka" rows="5"><%= values.description_ka %></textarea>
+    </label>
+    <label class="field">
+      <span>აღწერა ინგლისურად</span>
+      <textarea name="description_en" rows="5"><%= values.description_en %></textarea>
+    </label>
+  </div>
+  <div class="two-up">
+    <label class="field">
+      <span>ასაკი ქართულად</span>
+      <input type="text" name="age_ka" value="<%= values.age_ka %>" placeholder="1 წლიდან">
+    </label>
+    <label class="field">
+      <span>ასაკი ინგლისურად</span>
+      <input type="text" name="age_en" value="<%= values.age_en %>" placeholder="From 1 year">
+    </label>
+  </div>
+  <div class="checks">
+    <label><input type="checkbox" name="published"<%= values.published ? ' checked' : '' %>> საიტზე გამოქვეყნება</label>
+    <label><input type="checkbox" name="featured"<%= values.featured ? ' checked' : '' %>> რჩეულად მთავარ გვერდზე</label>
+  </div>
+  <% if (!toy) { %>
+  <label class="field">
+    <span>ფოტოები (JPEG, PNG ან WebP, თითო მაქსიმუმ <%= maxUploadMb %> MB)</span>
+    <input type="file" name="images" accept="image/jpeg,image/png,image/webp" multiple>
+  </label>
+  <% } %>
+  <div><button class="button" type="submit"><%= toy ? 'ცვლილებების შენახვა' : 'სათამაშოს დამატება' %></button></div>
+</form>
+
+<% if (toy) { %>
+<section class="panel stack">
+  <h2>ფოტოები</h2>
+  <p class="hint">პირველი ფოტო მთავარია და სიაში ის ჩანს. JPEG, PNG ან WebP, თითო მაქსიმუმ <%= maxUploadMb %> MB.</p>
+  <% if (images.length === 0) { %>
+  <p>ფოტო ჯერ არ არის. დაამატე ქვემოთ.</p>
+  <% } %>
+  <ul class="photo-grid">
+    <% images.forEach((image, index) => { %>
+    <li class="photo-card">
+      <img src="<%= image.view.smallest %>" width="<%= image.width %>" height="<%= image.height %>" alt="<%= values.name_ka %>, ფოტო <%= index + 1 %>" loading="lazy">
+      <% if (index === 0) { %><span class="chip chip--on">მთავარი ფოტო</span><% } %>
+      <div class="photo-card__actions">
+        <% if (index > 0) { %>
+        <form method="post" action="/admin/toys/<%= toy.id %>/images/<%= image.id %>/cover"><button class="small-button" type="submit">მთავარად დაყენება</button></form>
+        <form method="post" action="/admin/toys/<%= toy.id %>/images/<%= image.id %>/move"><input type="hidden" name="direction" value="up"><button class="small-button" type="submit">წინ</button></form>
+        <% } %>
+        <% if (index < images.length - 1) { %>
+        <form method="post" action="/admin/toys/<%= toy.id %>/images/<%= image.id %>/move"><input type="hidden" name="direction" value="down"><button class="small-button" type="submit">უკან</button></form>
+        <% } %>
+        <details class="confirm">
+          <summary class="small-button small-button--danger">წაშლა</summary>
+          <form method="post" action="/admin/toys/<%= toy.id %>/images/<%= image.id %>/delete"><button class="small-button small-button--danger-solid" type="submit">დიახ, წაიშალოს</button></form>
+        </details>
+      </div>
+    </li>
+    <% }) %>
+  </ul>
+  <form method="post" action="/admin/toys/<%= toy.id %>/images" enctype="multipart/form-data" class="upload-row">
+    <label class="field">
+      <span>ფოტოების დამატება</span>
+      <input type="file" name="images" accept="image/jpeg,image/png,image/webp" multiple required>
+    </label>
+    <button class="button" type="submit">ფოტოების ატვირთვა</button>
+  </form>
+</section>
+
+<section class="panel danger-zone">
+  <h2>სათამაშოს წაშლა</h2>
+  <p class="hint">სათამაშო და მისი ფოტოები სამუდამოდ წაიშლება.</p>
+  <details class="confirm">
+    <summary class="small-button small-button--danger">სათამაშოს წაშლა</summary>
+    <form method="post" action="/admin/toys/<%= toy.id %>/delete"><button class="small-button small-button--danger-solid" type="submit">დიახ, წაიშალოს</button></form>
+  </details>
+</section>
+<% } %>
+<%- include('partials/bottom') %>

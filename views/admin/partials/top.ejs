@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ka">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title><%= pageTitle %> | ადმინპანელი</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+<header class="admin-bar">
+  <a class="admin-bar__home" href="/admin/toys">Geppetto ადმინპანელი</a>
+  <nav class="admin-nav" aria-label="ადმინპანელის ნავიგაცია">
+    <a href="/admin/toys"<%- section === 'toys' ? ' aria-current="page"' : '' %>>სათამაშოები</a>
+    <a href="/admin/content"<%- section === 'content' ? ' aria-current="page"' : '' %>>ტექსტები</a>
+    <a href="/admin/contact"<%- section === 'contact' ? ' aria-current="page"' : '' %>>კონტაქტი</a>
+    <a href="/admin/brand"<%- section === 'brand' ? ' aria-current="page"' : '' %>>ლოგო და ფოტო</a>
+    <a href="/admin/password"<%- section === 'password' ? ' aria-current="page"' : '' %>>პაროლი</a>
+  </nav>
+  <div class="admin-bar__end">
+    <a href="/" target="_blank" rel="noopener">საიტის ნახვა</a>
+    <form method="post" action="/admin/logout"><button class="link-button" type="submit">გასვლა</button></form>
+  </div>
+</header>
+<main class="admin-main">

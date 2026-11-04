@@ -1,0 +1,27 @@
+{
+  "name": "geppetto-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Geppetto wooden toys catalogue with an admin panel",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server/index.js",
+    "test": "node --disable-warning=ExperimentalWarning --test \"test/**/*.test.js\"",
+    "reset-password": "node --disable-warning=ExperimentalWarning scripts/reset-password.js"
+  },
+  "dependencies": {
+    "@fontsource/bevan": "^5.3.0",
+    "@fontsource/noto-sans-georgian": "^5.3.0",
+    "@fontsource/noto-serif-georgian": "^5.3.0",
+    "ejs": "^7.0.2",
+    "express": "^5.3.0",
+    "multer": "^2.5.0",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  }
+}

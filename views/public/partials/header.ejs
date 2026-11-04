@@ -1,0 +1,21 @@
+<header class="site-header<%= currentPath === '/' ? ' site-header--home' : '' %>">
+  <% if (currentPath !== '/') { %>
+  <a class="site-header__brand" href="<%= url('/') %>" aria-label="<%= fixed.logoHomeLabel %>">
+    <% if (logo) { %>
+    <img class="site-logo" src="<%= logo.smallest %>" srcset="<%= logo.srcset %>" sizes="72px" width="72" height="72" alt="<%= t('hero_brand') %>">
+    <% } else { %>
+    <span class="site-header__word"><%= t('hero_brand') %></span>
+    <% } %>
+  </a>
+  <% } %>
+  <nav class="site-nav" aria-label="<%= fixed.mainNavLabel %>">
+    <a href="<%= url('/') %>"<%- currentPath === '/' ? ' aria-current="page"' : '' %>><%= t('nav_home') %></a>
+    <a href="<%= url('/toys') %>"<%- currentPath?.startsWith('/toys') ? ' aria-current="page"' : '' %>><%= t('nav_toys') %></a>
+    <a href="<%= url('/contact') %>"<%- currentPath === '/contact' ? ' aria-current="page"' : '' %>><%= t('nav_contact') %></a>
+  </nav>
+  <div class="lang-switch" role="group" aria-label="<%= fixed.languageSwitchLabel %>">
+    <% languages.forEach((language) => { %>
+    <a href="<%= language.href %>" lang="<%= language.code %>"<%- language.code === lang ? ' aria-current="true"' : '' %>><%= language.name %></a>
+    <% }) %>
+  </div>
+</header>

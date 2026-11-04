@@ -1,0 +1,13 @@
+node_modules/
+
+# Toys, texts, uploaded photos and the admin password hash. Never committed.
+data/
+
+# Secrets and local settings.
+.env*
+
+# Working files, not part of the site.
+.apex/
+.claude/
+screenshots/
+*.log

@@ -1,0 +1,39 @@
+<%- include('partials/top', { pageTitle: 'ლოგო და ფოტო' }) %>
+<div class="page-head">
+  <h1>ლოგო და მთავარი ფოტო</h1>
+</div>
+<p class="hint">JPEG, PNG ან WebP, მაქსიმუმ <%= maxUploadMb %> MB. ახალი ფაილი ძველს ჩაანაცვლებს.</p>
+<%- include('partials/notices') %>
+<div class="two-up">
+  <section class="panel stack">
+    <h2>ლოგო</h2>
+    <% if (logo) { %>
+    <img class="brand-preview brand-preview--logo" src="<%= logo.smallest %>" srcset="<%= logo.srcset %>" sizes="128px" alt="ახლანდელი ლოგო">
+    <% } else { %>
+    <p>ლოგო ჯერ არ არის ატვირთული.</p>
+    <% } %>
+    <form method="post" action="/admin/brand/logo" enctype="multipart/form-data" class="stack">
+      <label class="field">
+        <span>ახალი ლოგო (კვადრატული PNG გამჭვირვალე ფონით, მინიმუმ 1000px. მთავარ გვერდზე დიდად ჩანს)</span>
+        <input type="file" name="image" accept="image/jpeg,image/png,image/webp" required>
+      </label>
+      <div><button class="button" type="submit">ლოგოს ატვირთვა</button></div>
+    </form>
+  </section>
+  <section class="panel stack">
+    <h2>მთავარი გვერდის ფოტო</h2>
+    <% if (hero) { %>
+    <img class="brand-preview" src="<%= hero.src %>" srcset="<%= hero.srcset %>" sizes="280px" alt="ახლანდელი მთავარი ფოტო">
+    <% } else { %>
+    <p>ფოტო ჯერ არ არის ატვირთული.</p>
+    <% } %>
+    <form method="post" action="/admin/brand/hero" enctype="multipart/form-data" class="stack">
+      <label class="field">
+        <span>ახალი ფოტო (კვადრატული უკეთ ჩანს)</span>
+        <input type="file" name="image" accept="image/jpeg,image/png,image/webp" required>
+      </label>
+      <div><button class="button" type="submit">ფოტოს ატვირთვა</button></div>
+    </form>
+  </section>
+</div>
+<%- include('partials/bottom') %>

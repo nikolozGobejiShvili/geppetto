@@ -1,0 +1,15 @@
+<%- include('partials/head') %>
+<main id="main" class="page-section">
+  <div class="section-head">
+    <h1><%= t('toys_title') %></h1>
+  </div>
+  <% if (toys.length > 0) { %>
+  <%- include('partials/shelf') %>
+  <% } else { %>
+  <div class="empty">
+    <svg class="empty__mark" aria-hidden="true"><use href="#mark"/></svg>
+    <p><%= t('toys_empty') %></p>
+  </div>
+  <% } %>
+</main>
+<%- include('partials/footer') %>

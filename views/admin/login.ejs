@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ka">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>შესვლა | ადმინპანელი</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body class="login-page">
+  <main class="login-box">
+    <h1>Geppetto ადმინპანელი</h1>
+    <% if (error) { %><p class="notice notice--error" role="alert"><%= error %></p><% } %>
+    <form method="post" action="/admin/login" class="stack">
+      <input type="text" name="username" value="admin" autocomplete="username" hidden>
+      <label class="field">
+        <span>პაროლი</span>
+        <input type="password" name="password" autocomplete="current-password" required autofocus>
+      </label>
+      <button class="button" type="submit">შესვლა</button>
+    </form>
+  </main>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<ul class="shelf<%= currentPath === '/' ? ' shelf--home' : '' %>">
+  <% toys.forEach((toy) => { %>
+  <li class="shelf__item">
+    <a class="toy" href="<%= url(`/toys/${toy.slug}`) %>">
+      <span class="toy__frame">
+        <% if (toy.cover) { %>
+        <img src="<%= toy.cover.src %>" srcset="<%= toy.cover.srcset %>" sizes="<%= currentPath === '/' ? '(min-width: 720px) 33vw, 50vw' : '(min-width: 1120px) 25vw, (min-width: 720px) 33vw, 50vw' %>" width="<%= toy.cover.width %>" height="<%= toy.cover.height %>" alt="" loading="lazy">
+        <% } else { %>
+        <svg class="toy__placeholder" aria-hidden="true"><use href="#mark"/></svg>
+        <% } %>
+        <svg class="toy__wink" aria-hidden="true"><use href="#mark"/></svg>
+      </span>
+      <span class="toy__plank" aria-hidden="true"></span>
+      <span class="toy__under">
+        <% if (toy.price_tetri !== null) { %>
+        <span class="toy__tag"><%= formatPrice(toy.price_tetri) %></span>
+        <% } %>
+        <span class="toy__name"><%= toyName(toy) %></span>
+      </span>
+    </a>
+  </li>
+  <% }) %>
+</ul>

@@ -1,0 +1,41 @@
+<%- include('partials/head') %>
+<main id="main" class="page-section toy-page">
+  <a class="back-link" href="<%= url('/toys') %>"><%= t('toy_back_link') %></a>
+  <div class="toy-page__layout">
+    <div class="toy-page__gallery">
+      <div class="toy-page__stage">
+        <% if (images.length > 0) { %>
+        <img id="toy-main-photo" src="<%= images[0].src %>" srcset="<%= images[0].srcset %>" sizes="(min-width: 900px) 55vw, 100vw" width="<%= images[0].width %>" height="<%= images[0].height %>" alt="<%= toyName(toy) %>">
+        <% } else { %>
+        <svg class="toy__placeholder" aria-hidden="true"><use href="#mark"/></svg>
+        <% } %>
+      </div>
+      <span class="toy__plank" aria-hidden="true"></span>
+      <% if (images.length > 1) { %>
+      <ul class="toy-page__thumbs">
+        <% images.forEach((image, index) => { %>
+        <li>
+          <a class="thumb" href="<%= image.src %>" data-src="<%= image.src %>" data-srcset="<%= image.srcset %>" aria-label="<%= fixed.photoLabel %> <%= index + 1 %>"<%- index === 0 ? ' aria-current="true"' : '' %>>
+            <img src="<%= image.smallest %>" width="<%= image.width %>" height="<%= image.height %>" alt="" loading="lazy">
+          </a>
+        </li>
+        <% }) %>
+      </ul>
+      <% } %>
+    </div>
+    <div class="toy-page__info">
+      <h1><%= toyName(toy) %></h1>
+      <% if (toy.price_tetri !== null) { %>
+      <p class="toy__tag toy__tag--large"><%= formatPrice(toy.price_tetri) %></p>
+      <% } %>
+      <%- include('partials/order') %>
+      <% if (age) { %>
+      <p class="toy-page__age"><span class="toy-page__age-label"><%= t('toy_age_label') %></span> <%= age %></p>
+      <% } %>
+      <% if (description) { %>
+      <p class="toy-page__description keep-lines"><%= description %></p>
+      <% } %>
+    </div>
+  </div>
+</main>
+<%- include('partials/footer') %>

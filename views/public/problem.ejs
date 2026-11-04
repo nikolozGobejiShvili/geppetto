@@ -1,0 +1,8 @@
+<%- include('partials/head') %>
+<main id="main" class="page-section problem">
+  <svg class="empty__mark" aria-hidden="true"><use href="#mark"/></svg>
+  <h1><%= problemTitle %></h1>
+  <p><%= problemText %></p>
+  <a class="button" href="<%= url('/') %>"><%= fixed.backHome %></a>
+</main>
+<%- include('partials/footer') %>

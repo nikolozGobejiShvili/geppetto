@@ -1,0 +1,38 @@
+<%- include('partials/top', { pageTitle: 'ტექსტები' }) %>
+<div class="page-head">
+  <h1>საიტის ტექსტები</h1>
+</div>
+<p class="hint">თუ ინგლისური ველი ცარიელია, საიტის ინგლისურ ვერსიაზე ქართული ტექსტი გამოჩნდება.</p>
+<%- include('partials/notices') %>
+<form method="post" action="/admin/content" class="stack">
+  <% [...new Set(fields.map((field) => field.group))].forEach((group) => { %>
+  <fieldset class="panel stack">
+    <legend><%= group %></legend>
+    <% fields.filter((field) => field.group === group).forEach((field) => { %>
+    <div class="text-pair">
+      <p class="text-pair__label"><%= field.label %></p>
+      <div class="two-up">
+        <label class="field">
+          <span>ქართულად</span>
+          <% if (field.multiline) { %>
+          <textarea name="<%= field.key %>__ka" rows="4"><%= texts[field.key].ka %></textarea>
+          <% } else { %>
+          <input type="text" name="<%= field.key %>__ka" value="<%= texts[field.key].ka %>">
+          <% } %>
+        </label>
+        <label class="field">
+          <span>ინგლისურად</span>
+          <% if (field.multiline) { %>
+          <textarea name="<%= field.key %>__en" rows="4"><%= texts[field.key].en %></textarea>
+          <% } else { %>
+          <input type="text" name="<%= field.key %>__en" value="<%= texts[field.key].en %>">
+          <% } %>
+        </label>
+      </div>
+    </div>
+    <% }) %>
+  </fieldset>
+  <% }) %>
+  <div class="sticky-save"><button class="button" type="submit">ტექსტების შენახვა</button></div>
+</form>
+<%- include('partials/bottom') %>

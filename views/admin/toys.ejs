@@ -1,0 +1,54 @@
+<%- include('partials/top', { pageTitle: 'სათამაშოები' }) %>
+<div class="page-head">
+  <h1>სათამაშოები</h1>
+  <a class="button" href="/admin/toys/new">სათამაშოს დამატება</a>
+</div>
+<%- include('partials/notices') %>
+<% if (toys.length === 0) { %>
+<p class="panel">სათამაშო ჯერ არ არის. დაამატე პირველი და ის საიტზე გამოჩნდება.</p>
+<% } %>
+<ul class="toy-rows">
+  <% toys.forEach((toy, index) => { %>
+  <li class="toy-row">
+    <a class="toy-row__photo" href="/admin/toys/<%= toy.id %>" tabindex="-1" aria-hidden="true">
+      <% if (toy.cover) { %><img src="<%= toy.cover.smallest %>" width="72" height="72" alt="" loading="lazy"><% } %>
+    </a>
+    <div class="toy-row__main">
+      <a class="toy-row__name" href="/admin/toys/<%= toy.id %>"><%= toy.name_ka %></a>
+      <div class="toy-row__meta">
+        <% if (toy.priceText) { %><span><%= toy.priceText %></span><% } %>
+        <span class="chip <%= toy.published ? 'chip--on' : 'chip--off' %>"><%= toy.published ? 'გამოქვეყნებულია' : 'დამალულია' %></span>
+        <% if (toy.featured) { %><span class="chip chip--on">რჩეული</span><% } %>
+        <% if (toy.price_tetri === null) { %><span class="chip chip--warn">ფასი აკლია</span><% } %>
+        <% if (!toy.cover) { %><span class="chip chip--warn">ფოტო აკლია</span><% } %>
+        <% if (!toy.name_en) { %><span class="chip chip--warn">ინგლისური სახელი აკლია</span><% } %>
+      </div>
+    </div>
+    <div class="toy-row__actions">
+      <form method="post" action="/admin/toys/<%= toy.id %>/move">
+        <input type="hidden" name="direction" value="up">
+        <button class="small-button" type="submit"<%= index === 0 ? ' disabled' : '' %> aria-label="<%= toy.name_ka %>: ზემოთ გადატანა">ზემოთ</button>
+      </form>
+      <form method="post" action="/admin/toys/<%= toy.id %>/move">
+        <input type="hidden" name="direction" value="down">
+        <button class="small-button" type="submit"<%= index === toys.length - 1 ? ' disabled' : '' %> aria-label="<%= toy.name_ka %>: ქვემოთ გადატანა">ქვემოთ</button>
+      </form>
+      <form method="post" action="/admin/toys/<%= toy.id %>/toggle">
+        <input type="hidden" name="field" value="published">
+        <button class="small-button" type="submit"><%= toy.published ? 'დამალვა' : 'გამოქვეყნება' %></button>
+      </form>
+      <form method="post" action="/admin/toys/<%= toy.id %>/toggle">
+        <input type="hidden" name="field" value="featured">
+        <button class="small-button" type="submit"><%= toy.featured ? 'რჩეულიდან მოხსნა' : 'რჩეულად მონიშვნა' %></button>
+      </form>
+      <details class="confirm">
+        <summary class="small-button small-button--danger">წაშლა</summary>
+        <form method="post" action="/admin/toys/<%= toy.id %>/delete">
+          <button class="small-button small-button--danger-solid" type="submit">დიახ, წაიშალოს</button>
+        </form>
+      </details>
+    </div>
+  </li>
+  <% }) %>
+</ul>
+<%- include('partials/bottom') %>

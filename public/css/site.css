@@ -1,0 +1,1174 @@
+@font-face {
+  font-family: 'Bevan';
+  src: url('/fonts/bevan/bevan-latin-400-normal.woff2') format('woff2');
+  font-weight: 400 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+}
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  src: url('/fonts/noto-serif-georgian/noto-serif-georgian-georgian-900-normal.woff2') format('woff2');
+  font-weight: 900;
+  font-display: swap;
+  unicode-range: U+10A0-10FF, U+1C90-1CBF, U+2D00-2D2F;
+}
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  src: url('/fonts/noto-serif-georgian/noto-serif-georgian-georgian-700-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+10A0-10FF, U+1C90-1CBF, U+2D00-2D2F;
+}
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  src: url('/fonts/noto-sans-georgian/noto-sans-georgian-georgian-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+10A0-10FF, U+1C90-1CBF, U+2D00-2D2F;
+}
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  src: url('/fonts/noto-sans-georgian/noto-sans-georgian-georgian-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+10A0-10FF, U+1C90-1CBF, U+2D00-2D2F;
+}
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  src: url('/fonts/noto-sans-georgian/noto-sans-georgian-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+}
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  src: url('/fonts/noto-sans-georgian/noto-sans-georgian-latin-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+}
+
+:root {
+  /* Sampled from the logo file. */
+  --wood: #FEE3BD;
+  --wood-pale: #FFF1DC;
+  --wood-shade: #E7B378;
+  --walnut: #2B1A12;
+  --walnut-soft: #4A2E1F;
+  --red: #BC1805;
+  --red-bright: #CC230E;
+  --red-deep: #670A00;
+  --blue: #1557A4;
+  --gold: #E3B135;
+  --gold-light: #F5C662;
+  --mustache: #BB7F45;
+  --mustache-deep: #713D13;
+
+  --font-display: 'Bevan', 'Noto Serif Georgian', Georgia, serif;
+  --font-body: 'Noto Sans Georgian', 'Segoe UI', sans-serif;
+
+  --text-small: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-medium: 1.3125rem;
+  --text-large: 1.6875rem;
+  --text-title: clamp(2rem, 5vw, 3rem);
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --page-width: 1320px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--wood) url('/assets/img/wood-grain.svg');
+  color: var(--walnut);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  overflow-x: clip;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+h1,
+h2,
+p,
+dl,
+dd,
+ul {
+  margin: 0;
+}
+
+h1,
+h2 {
+  color: var(--red);
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--blue);
+  text-underline-offset: 0.18em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.sprite {
+  position: absolute;
+}
+
+.keep-lines {
+  white-space: pre-line;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 10;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--wood-pale);
+  color: var(--walnut);
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* Header: the walnut board the logo hangs on */
+
+.site-header {
+  --link: var(--wood);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'brand lang'
+    'nav nav';
+  align-items: center;
+  gap: 8px 16px;
+  padding: 12px var(--gutter);
+  background: var(--walnut) url('/assets/img/wood-grain-dark.svg');
+}
+
+.site-header--home {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'lang'
+    'nav';
+}
+
+@media (min-width: 720px) {
+  .site-header {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'brand nav lang';
+    gap: 32px;
+  }
+
+  .site-header--home {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'nav lang';
+  }
+}
+
+.site-header__brand {
+  grid-area: brand;
+  display: block;
+  width: fit-content;
+  border-radius: 50%;
+}
+
+.site-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+}
+
+.site-header__word {
+  color: var(--wood);
+  font-family: var(--font-display);
+  font-size: var(--text-large);
+  line-height: 1;
+}
+
+.site-nav {
+  grid-area: nav;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 clamp(20px, 4vw, 40px);
+}
+
+@media (max-width: 359px) {
+  .site-nav {
+    column-gap: 6px;
+    font-size: var(--text-small);
+  }
+}
+
+@media (min-width: 720px) {
+  .site-nav {
+    justify-content: flex-start;
+  }
+}
+
+.site-nav a {
+  position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px 2px 14px;
+  color: var(--wood);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: #fff3df;
+}
+
+.site-nav a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 34px;
+  height: 13px;
+  margin-left: -17px;
+  background: url('/assets/img/stache-wood.svg') center / contain no-repeat;
+}
+
+.site-header :focus-visible,
+.hero :focus-visible {
+  outline-color: var(--gold-light);
+}
+
+.lang-switch {
+  grid-area: lang;
+  display: flex;
+  justify-self: end;
+  gap: 4px;
+}
+
+.lang-switch a {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: var(--wood);
+  font-size: var(--text-small);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lang-switch a[aria-current='true'] {
+  background: var(--wood);
+  color: var(--walnut);
+}
+
+/* Hero: the logo itself hangs on the walnut board */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 24px;
+  padding: 10px var(--gutter) 46px;
+  overflow: clip;
+  background: var(--walnut) url('/assets/img/wood-grain-dark.svg');
+}
+
+@media (min-width: 1000px) {
+  .hero {
+    grid-template-columns: auto minmax(0, 540px);
+    justify-content: center;
+    align-items: center;
+    column-gap: clamp(48px, 6vw, 96px);
+    padding-block: 18px 56px;
+  }
+}
+
+.hero__mount {
+  position: relative;
+  width: min(100%, 560px, 86vh);
+}
+
+@media (min-width: 1000px) {
+  .hero__mount {
+    width: min(74vh, 620px, 48vw);
+  }
+}
+
+.hero__logo {
+  transform-origin: 50% 0;
+  animation: sign-settles 1.2s ease-out both;
+}
+
+.hero__logo img {
+  width: 100%;
+  border-radius: 50%;
+  box-shadow:
+    0 5px 0 var(--mustache),
+    0 24px 44px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes sign-settles {
+  0% {
+    transform: rotate(-3.5deg);
+  }
+  40% {
+    transform: rotate(2deg);
+  }
+  70% {
+    transform: rotate(-0.8deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+.wordmark {
+  color: var(--wood-pale);
+  font-size: clamp(3rem, 14vw, 6.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* Sits on the empty lower right of the disc, clear of the lettering and mustache. */
+.hero__photo {
+  position: absolute;
+  right: -3%;
+  bottom: -4%;
+  width: 28%;
+  aspect-ratio: 1;
+  border: clamp(4px, 0.8vw, 8px) solid var(--wood-pale);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow:
+    0 0 0 2px var(--gold),
+    0 0 0 4px var(--mustache-deep),
+    0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.wordmark ~ .hero__photo {
+  position: static;
+  width: 200px;
+  margin: 16px auto 0;
+}
+
+.hero__text {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+@media (min-width: 1000px) {
+  .hero__text {
+    justify-items: start;
+    text-align: left;
+  }
+}
+
+.hero__tagline {
+  color: var(--wood-pale);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.6vw, 3.25rem);
+  font-weight: 900;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.hero__subtitle {
+  color: var(--wood-shade);
+  font-size: clamp(1rem, 2vw, 1.3125rem);
+  line-height: 1.4;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px 20px;
+  margin-top: 14px;
+}
+
+@media (min-width: 1000px) {
+  .hero__actions {
+    justify-content: flex-start;
+  }
+}
+
+/* Enamel, like the letters of the logo */
+.button {
+  display: inline-block;
+  min-height: 44px;
+  padding: 10px 24px;
+  border: 2px solid var(--red-deep);
+  border-radius: 10px;
+  background: linear-gradient(var(--red-bright), var(--red));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 196, 170, 0.6),
+    0 4px 0 var(--red-deep),
+    0 8px 12px rgba(43, 26, 18, 0.3);
+  color: #fff3df;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--red-bright);
+}
+
+.button:active {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 196, 170, 0.6),
+    0 1px 0 var(--red-deep);
+  transform: translateY(3px);
+}
+
+/* A brass plate, the same metal as the rim of the glasses */
+.plaque {
+  position: relative;
+  padding: 7px 26px;
+  border-radius: 4px;
+  background: linear-gradient(var(--gold-light), var(--gold));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 246, 210, 0.7),
+    0 0 0 1px var(--mustache-deep),
+    0 4px 8px rgba(0, 0, 0, 0.4);
+  color: var(--walnut);
+  font-size: var(--text-small);
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.plaque::before,
+.plaque::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--mustache-deep);
+}
+
+.plaque::before {
+  left: 9px;
+}
+
+.plaque::after {
+  right: 9px;
+}
+
+/* Ornament bands: the gold chain of the red G and the gold twist of the blue letters */
+
+.divider {
+  display: grid;
+  place-items: center;
+  height: 32px;
+  background: var(--red) url('/assets/img/ornament-band.svg') center / auto 32px repeat-x;
+}
+
+.site-footer__band {
+  height: 32px;
+  background: var(--blue) url('/assets/img/ornament-band-blue.svg') center / auto 32px repeat-x;
+}
+
+.divider__token {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--wood-pale) url('/assets/img/wood-grain.svg');
+  box-shadow:
+    0 0 0 3px var(--gold),
+    0 0 0 5px var(--red-deep),
+    0 8px 14px rgba(43, 26, 18, 0.35);
+  z-index: 1;
+}
+
+.divider__mark {
+  width: 78px;
+  aspect-ratio: 480 / 157;
+}
+
+/* Page sections */
+
+.page-section {
+  width: min(100%, var(--page-width));
+  margin-inline: auto;
+  padding: clamp(40px, 7vw, 76px) var(--gutter) clamp(44px, 7vw, 80px);
+}
+
+/* Leaves room for the round token that hangs below the ornament band. */
+.divider + .page-section {
+  padding-top: clamp(64px, 8vw, 84px);
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 24px;
+  margin-bottom: clamp(20px, 4vw, 36px);
+}
+
+.section-head__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+}
+
+/* Shelf: toys stand on wooden planks that join into one board.
+   The rows are shared, so names on one shelf line up whether or not a toy has a price. */
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 720px) {
+  .shelf {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1120px) {
+  .shelf:not(.shelf--home) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.shelf__item {
+  display: grid;
+  grid-row: span 4;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: subgrid;
+  min-width: 0;
+  padding-bottom: clamp(24px, 4vw, 44px);
+}
+
+.toy {
+  display: grid;
+  grid-row: 1 / -1;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: subgrid;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.toy__frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  margin-inline: clamp(6px, 1.2vw, 14px);
+  overflow: hidden;
+  border: clamp(3px, 0.5vw, 6px) solid var(--wood-pale);
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+  background: var(--wood-shade);
+  box-shadow: 0 0 0 1px rgba(90, 59, 34, 0.45);
+}
+
+.toy__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.toy__placeholder {
+  width: 70%;
+  height: 100%;
+  margin-inline: auto;
+}
+
+.toy__plank {
+  position: relative;
+  display: block;
+  height: clamp(12px, 1.4vw, 16px);
+  background: var(--mustache);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 233, 196, 0.55),
+    inset 0 -2px 0 rgba(90, 59, 34, 0.5),
+    0 6px 7px rgba(43, 26, 18, 0.4);
+  /* Cuts the side shadows so neighbouring planks join into one shelf. */
+  clip-path: inset(0 0 -14px 0);
+}
+
+.toy__under {
+  display: contents;
+}
+
+.toy__tag {
+  position: relative;
+  display: table;
+  justify-self: start;
+  margin: 13px 0 8px clamp(16px, 2.2vw, 24px);
+  padding: 3px 12px;
+  border-radius: 7px;
+  background: var(--wood-pale);
+  box-shadow:
+    inset 0 0 0 1px rgba(188, 24, 5, 0.35),
+    0 3px 0 var(--mustache),
+    0 5px 7px rgba(43, 26, 18, 0.25);
+  color: var(--red);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  line-height: 1.4;
+  transform: rotate(-2deg);
+  transform-origin: 50% -13px;
+}
+
+.toy__tag::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 2px;
+  height: 13px;
+  margin-left: -1px;
+  background: var(--walnut-soft);
+}
+
+.toy__name {
+  grid-row: 4;
+  display: block;
+  margin-top: 8px;
+  padding-inline: clamp(8px, 1.4vw, 16px);
+  font-size: clamp(0.9375rem, 4.4vw, 1.0625rem);
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.toy:hover .toy__name {
+  color: var(--red);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.toy__wink {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 78px;
+  aspect-ratio: 480 / 157;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--wood-pale);
+  box-shadow: 0 3px 8px rgba(43, 26, 18, 0.35);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.toy:hover .toy__wink,
+.toy:focus-visible .toy__wink {
+  opacity: 1;
+  transform: none;
+}
+
+.toy:hover .toy__tag,
+.toy:focus-visible .toy__tag {
+  animation: tag-swing 0.8s ease-out;
+}
+
+@keyframes tag-swing {
+  0% {
+    transform: rotate(-2deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(-2deg);
+  }
+}
+
+.empty,
+.problem {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding-block: clamp(32px, 7vw, 72px);
+  text-align: center;
+}
+
+.empty__mark {
+  width: 200px;
+  aspect-ratio: 480 / 157;
+}
+
+.problem .button {
+  margin-top: 12px;
+}
+
+.about {
+  padding-top: 0;
+}
+
+.about p {
+  max-width: 66ch;
+  margin-top: 14px;
+}
+
+/* Toy page */
+
+.toy-page {
+  padding-top: clamp(14px, 2.5vw, 28px);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.toy-page__layout {
+  display: grid;
+  gap: 28px;
+}
+
+@media (min-width: 900px) {
+  .toy-page__layout {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+  }
+}
+
+.toy-page__stage {
+  margin-inline: clamp(8px, 2vw, 20px);
+  overflow: hidden;
+  border: 7px solid var(--wood-pale);
+  border-bottom: 0;
+  border-radius: 14px 14px 0 0;
+  background: var(--wood-shade);
+  box-shadow: 0 0 0 1px rgba(90, 59, 34, 0.45);
+}
+
+.toy-page__stage img {
+  width: 100%;
+  max-height: min(78vh, 760px);
+  object-fit: contain;
+  background: var(--wood-pale);
+}
+
+.toy-page__stage .toy__placeholder {
+  width: 42%;
+  height: 300px;
+}
+
+.toy-page__gallery .toy__plank {
+  height: 18px;
+}
+
+.toy-page__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.thumb {
+  display: block;
+  width: 74px;
+  height: 74px;
+  overflow: hidden;
+  border: 4px solid var(--wood-pale);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--mustache), 0 4px 7px rgba(43, 26, 18, 0.3);
+}
+
+.thumb[aria-current='true'] {
+  box-shadow: 0 0 0 3px var(--red), 0 4px 7px rgba(43, 26, 18, 0.3);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.toy__tag--large {
+  margin: 34px 0 22px 10px;
+  padding: 7px 20px;
+  border-radius: 10px;
+  font-size: var(--text-large);
+  transform-origin: 50% -24px;
+}
+
+.toy__tag--large::before {
+  height: 24px;
+}
+
+.toy-page__info h1 {
+  overflow-wrap: anywhere;
+}
+
+.toy-page__age-label {
+  margin-right: 6px;
+  font-weight: 600;
+}
+
+.toy-page__description {
+  max-width: 66ch;
+  margin-top: 16px;
+}
+
+/* Order: the button lets down a small sign with the app logos */
+
+.order {
+  max-width: 460px;
+  margin: 24px 0;
+}
+
+.toy__tag--large + .order {
+  margin-top: 8px;
+}
+
+.order__toggle {
+  cursor: pointer;
+  list-style: none;
+}
+
+.order__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.order__sign {
+  position: relative;
+  margin-top: 30px;
+  padding: 16px clamp(14px, 3vw, 24px) 18px;
+  border-radius: 12px;
+  background: var(--wood-pale) url('/assets/img/wood-grain.svg');
+  box-shadow:
+    inset 0 2px 0 rgba(255, 246, 228, 0.9),
+    0 5px 0 var(--mustache),
+    0 12px 18px rgba(43, 26, 18, 0.25);
+  transform-origin: 50% -30px;
+}
+
+.order[open] .order__sign {
+  animation: sign-lowered 0.32s ease-out;
+}
+
+@keyframes sign-lowered {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) rotate(-1.5deg);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(0.8deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+.order__sign::before,
+.order__sign::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  width: 2px;
+  height: 30px;
+  background: var(--walnut-soft);
+}
+
+.order__sign::before {
+  left: 20px;
+}
+
+.order__sign::after {
+  left: 76px;
+}
+
+.order__hint {
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.order__channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px clamp(14px, 4vw, 26px);
+  margin: 14px 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.order__channel {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  min-width: 72px;
+  color: var(--walnut);
+  font-size: var(--text-small);
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.order__channel:hover {
+  text-decoration: underline;
+}
+
+.order__logo {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 3px var(--wood-pale),
+    0 0 0 5px var(--mustache),
+    0 7px 9px rgba(43, 26, 18, 0.3);
+}
+
+.order__logo svg {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+
+.order__logo--whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+
+.order__logo--instagram {
+  background: radial-gradient(circle at 30% 107%, #FDF497 0%, #FDF497 5%, #FD5949 45%, #D6249F 60%, #285AEB 90%);
+  color: #fff;
+}
+
+.order__logo--facebook {
+  background: #fff;
+  color: #0866FF;
+}
+
+.order__logo--facebook svg {
+  width: 46px;
+  height: 46px;
+}
+
+.order__note {
+  color: var(--walnut-soft);
+  font-size: var(--text-small);
+  line-height: 1.55;
+}
+
+.order__status {
+  margin-top: 6px;
+  color: var(--blue);
+  font-size: var(--text-small);
+  font-weight: 600;
+}
+
+/* Contact: a sign hanging from two strings on the middle of the page */
+
+.contact-page {
+  text-align: center;
+}
+
+.contact-page__intro {
+  max-width: 60ch;
+  margin: 12px auto 0;
+}
+
+.sign {
+  position: relative;
+  width: min(100%, 680px);
+  margin: 96px auto 0;
+  padding: clamp(20px, 4vw, 36px);
+  border-radius: 14px;
+  background: var(--wood-pale) url('/assets/img/wood-grain.svg');
+  box-shadow:
+    inset 0 2px 0 rgba(255, 246, 228, 0.9),
+    0 5px 0 var(--mustache),
+    0 14px 22px rgba(43, 26, 18, 0.28);
+  text-align: left;
+}
+
+.sign::before {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 100%;
+  height: 66px;
+  background: url('/assets/img/sign-strings.svg') center / 100% 100% no-repeat;
+}
+
+.sign::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 58px);
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow:
+    inset 0 2px 1px rgba(255, 246, 210, 0.7),
+    0 0 0 1px var(--mustache-deep),
+    0 3px 4px rgba(43, 26, 18, 0.4);
+}
+
+.contact-list {
+  display: grid;
+  gap: 6px;
+}
+
+.contact-list a {
+  display: inline-block;
+  padding-block: 8px;
+}
+
+.contact-list__row {
+  display: grid;
+  gap: 0 20px;
+}
+
+@media (min-width: 560px) {
+  .contact-list__row {
+    grid-template-columns: 11em minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+
+.contact-list dt {
+  color: var(--walnut-soft);
+  font-size: var(--text-small);
+  line-height: 1.9;
+}
+
+.contact-list dd {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* Footer: the walnut board again */
+
+.site-footer {
+  background: var(--walnut) url('/assets/img/wood-grain-dark.svg');
+  color: var(--wood);
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+  width: min(100%, var(--page-width));
+  margin-inline: auto;
+  padding: clamp(36px, 6vw, 60px) var(--gutter) 24px;
+}
+
+@media (min-width: 720px) {
+  .site-footer__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+}
+
+.site-footer__logo {
+  width: 112px;
+  height: 112px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+}
+
+.site-footer h2 {
+  margin-bottom: 14px;
+  color: var(--wood);
+  font-size: var(--text-medium);
+}
+
+.site-footer a {
+  color: var(--wood);
+}
+
+.site-footer :focus-visible {
+  outline-color: var(--gold-light);
+}
+
+.site-footer .contact-list dt {
+  color: var(--wood-shade);
+}
+
+.site-footer__copyright {
+  grid-column: 1 / -1;
+  color: var(--wood-shade);
+  font-size: var(--text-small);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

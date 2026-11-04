@@ -1,0 +1,50 @@
+<%- include('partials/head') %>
+<main id="main">
+  <section class="hero">
+    <div class="hero__mount">
+      <% const brand = t('hero_brand'); const logoTag = brand ? 'h1' : 'div'; %>
+      <% if (logo) { %>
+      <<%= logoTag %> class="hero__logo"><img src="<%= logo.src %>" srcset="<%= logo.srcset %>" sizes="(min-width: 1000px) 620px, min(92vw, 560px)" width="<%= logo.width %>" height="<%= logo.height %>" alt="<%= brand %>" fetchpriority="high"></<%= logoTag %>>
+      <% } else if (brand) { %>
+      <h1 class="wordmark"><%= brand %></h1>
+      <% } %>
+      <% if (hero) { %>
+      <img class="hero__photo" src="<%= hero.src %>" srcset="<%= hero.srcset %>" sizes="(min-width: 1000px) 190px, 31vw" width="<%= hero.width %>" height="<%= hero.height %>" alt="<%= t('hero_image_alt') %>">
+      <% } %>
+    </div>
+    <div class="hero__text">
+      <p class="hero__tagline"><%= t('hero_tagline') %></p>
+      <p class="hero__subtitle"><%= t('hero_subtitle') %></p>
+      <div class="hero__actions">
+        <a class="button" href="<%= url('/toys') %>"><%= t('hero_link') %></a>
+        <% if (t('trust_badge')) { %>
+        <p class="plaque"><%= t('trust_badge') %></p>
+        <% } %>
+      </div>
+    </div>
+  </section>
+  <%- include('partials/divider') %>
+
+  <section class="page-section">
+    <div class="section-head">
+      <h2><%= t('featured_title') %></h2>
+      <a class="section-head__link" href="<%= url('/toys') %>"><%= t('featured_link') %></a>
+    </div>
+    <% if (toys.length > 0) { %>
+    <%- include('partials/shelf') %>
+    <% } else { %>
+    <div class="empty">
+      <svg class="empty__mark" aria-hidden="true"><use href="#mark"/></svg>
+      <p><%= t('toys_empty') %></p>
+    </div>
+    <% } %>
+  </section>
+
+  <% if (t('about_text')) { %>
+  <section class="page-section about">
+    <h2><%= t('about_title') %></h2>
+    <p class="keep-lines"><%= t('about_text') %></p>
+  </section>
+  <% } %>
+</main>
+<%- include('partials/footer') %>

@@ -1,0 +1,20 @@
+<footer class="site-footer">
+  <div class="site-footer__band" aria-hidden="true"></div>
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <% if (logo) { %>
+      <img class="site-footer__logo" src="<%= logo.smallest %>" srcset="<%= logo.srcset %>" sizes="112px" width="112" height="112" alt="" loading="lazy">
+      <% } %>
+      <p><%= t('footer_note') %></p>
+    </div>
+    <% if (contact.hasAny && currentPath !== '/contact') { %>
+    <div class="site-footer__contact">
+      <h2><%= t('footer_contact_title') %></h2>
+      <%- include('contact-list') %>
+    </div>
+    <% } %>
+    <p class="site-footer__copyright"><%= t('footer_copyright') %></p>
+  </div>
+</footer>
+</body>
+</html>

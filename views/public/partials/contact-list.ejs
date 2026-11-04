@@ -1,0 +1,47 @@
+<%
+  const prettyUrl = (value) => value.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+%>
+<dl class="contact-list">
+  <% if (contact.phone) { %>
+  <div class="contact-list__row">
+    <dt><%= t('contact_phone_label') %></dt>
+    <dd><a href="<%= contact.phoneHref %>"><%= contact.phone %></a></dd>
+  </div>
+  <% } %>
+  <% if (contact.email) { %>
+  <div class="contact-list__row">
+    <dt><%= t('contact_email_label') %></dt>
+    <dd><a href="mailto:<%= contact.email %>"><%= contact.email %></a></dd>
+  </div>
+  <% } %>
+  <% if (contact.whatsapp) { %>
+  <div class="contact-list__row">
+    <dt><%= t('contact_whatsapp_label') %></dt>
+    <dd><a href="https://wa.me/<%= contact.whatsapp %>" rel="noopener">+<%= contact.whatsapp %></a></dd>
+  </div>
+  <% } %>
+  <% if (contact.address) { %>
+  <div class="contact-list__row">
+    <dt><%= t('contact_address_label') %></dt>
+    <dd class="keep-lines"><%= contact.address %></dd>
+  </div>
+  <% } %>
+  <% if (contact.hours) { %>
+  <div class="contact-list__row">
+    <dt><%= t('contact_hours_label') %></dt>
+    <dd class="keep-lines"><%= contact.hours %></dd>
+  </div>
+  <% } %>
+  <% if (contact.instagram) { %>
+  <div class="contact-list__row">
+    <dt><%= t('contact_instagram_label') %></dt>
+    <dd><a href="<%= contact.instagram %>" rel="noopener"><%= prettyUrl(contact.instagram) %></a></dd>
+  </div>
+  <% } %>
+  <% if (contact.facebook) { %>
+  <div class="contact-list__row">
+    <dt><%= t('contact_facebook_label') %></dt>
+    <dd><a href="<%= contact.facebook %>" rel="noopener"><%= prettyUrl(contact.facebook) %></a></dd>
+  </div>
+  <% } %>
+</dl>
